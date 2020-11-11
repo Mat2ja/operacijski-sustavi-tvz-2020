@@ -1,0 +1,5 @@
+head -c [size in bytes] </dev/urandom >[filename]
+
+head -c 1 </dev/urandom >mala
+head -c 100M </dev/urandom >srednja
+head -c 1G </dev/urandom >velika

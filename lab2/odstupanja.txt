@@ -1,0 +1,1 @@
+for i in {1..20}; do ./fork 100000 > fork.txt ; echo $((100000 - $(($(pcregrep -M '^Roditelj.*\n^Dijete.*\n' fork.txt | wc -l) / 2)))) ; done

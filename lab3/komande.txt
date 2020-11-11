@@ -1,0 +1,5 @@
+make
+insmod mojmodul.ko (ucitavanje modula u jezgru)
+lsmod (ispis ucitanih modula u jezgri)
+dmesg (dnevnik jezgre)
+rmmod mojmodul (uklanjanje modula)
