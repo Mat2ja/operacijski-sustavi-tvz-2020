@@ -14,9 +14,9 @@ void *ivan();
 void *kuharica();
 
 typedef struct {
-    int brojPojedenih;
-    int brojOdbijenih;
-    int brojPraznih;
+    int pojedenih;
+    int odbijenih;
+    int praznih;
 } eatStatus;
 
 eatStatus tinStatus = {};
@@ -73,28 +73,35 @@ void *tin() {
     while (brojJela > 0) {
         spavanje(ime);
         programiranje(ime);
-        int res = jede(ime);
-        if (res == 1)
-            tinStatus.brojPojedenih++;
-        else if (res == 0)
-            tinStatus.brojOdbijenih++;
-        else
-            tinStatus.brojPraznih++;
+        switch (jede(ime)) {
+        case 1:
+            tinStatus.pojedenih++;
+            break;
+        case 0:
+            tinStatus.odbijenih++;
+            break;
+        default:
+            tinStatus.praznih++;
+        }
         autoServis(ime);
     }
 }
+
 void *davor() {
     char *ime = "Davor";
     while (brojJela > 0) {
         spavanje(ime);
         programiranje(ime);
-        int res = jede(ime);
-        if (res == 1)
-            davorStatus.brojPojedenih++;
-        else if (res == 0)
-            davorStatus.brojOdbijenih++;
-        else
-            davorStatus.brojPraznih++;
+        switch (jede(ime)) {
+        case 1:
+            davorStatus.pojedenih++;
+            break;
+        case 0:
+            davorStatus.odbijenih++;
+            break;
+        default:
+            davorStatus.praznih++;
+        }
         TV(ime);
     }
 }
@@ -104,13 +111,16 @@ void *ivica() {
     while (brojJela > 0) {
         spavanje(ime);
         tenis(ime);
-        int res = jede(ime);
-        if (res == 1)
-            ivicaStatus.brojPojedenih++;
-        else if (res == 0)
-            ivicaStatus.brojOdbijenih++;
-        else
-            ivicaStatus.brojPraznih++;
+        switch (jede(ime)) {
+        case 1:
+            ivicaStatus.pojedenih++;
+            break;
+        case 0:
+            ivicaStatus.odbijenih++;
+            break;
+        default:
+            ivicaStatus.praznih++;
+        }
         programiranje(ime);
     }
 }
@@ -120,13 +130,17 @@ void *ivan() {
     while (brojJela > 0) {
         spavanje(ime);
         klavir(ime);
-        int res = jede(ime);
-        if (res == 1)
-            ivanStatus.brojPojedenih++;
-        else if (res == 0)
-            ivanStatus.brojOdbijenih++;
-        else
-            ivanStatus.brojPraznih++;
+        switch (jede(ime)) {
+        case 1:
+            ivanStatus.pojedenih++;
+            break;
+        case 0:
+            ivanStatus.odbijenih++;
+            break;
+        default:
+            ivanStatus.praznih++;
+        }
+
         programiranje(ime);
     }
 }
@@ -138,7 +152,7 @@ void *kuharica() {
             sleep(rand() % 2 + 1);
             pthread_mutex_lock(&mutex);
             jelo = rand() % 8 + 1;
-            printf("Na prazan stol je stavljeno jelo %d\n", jelo);
+            printf("Na prazan stol stavljeno jelo %d\n", jelo);
             pthread_mutex_unlock(&mutex);
             // odmara
             sleep(rand() % 2 + 1);
@@ -248,7 +262,7 @@ int jede(char *ime) {
 }
 
 void printStatus(char *ime, eatStatus status) {
-    printf("\n%s je jeo %d puta\n", ime, status.brojPojedenih);
-    printf("%s je jelo odbio %d puta\n", ime, status.brojOdbijenih);
-    printf("%s je %d puta naisao na prazan stol\n\n", ime, status.brojPraznih);
+    printf("\n%s je jeo %d puta\n", ime, status.pojedenih);
+    printf("%s je jelo odbio %d puta\n", ime, status.odbijenih);
+    printf("%s je %d puta naisao na prazan stol\n", ime, status.praznih);
 }
